@@ -1,3 +1,21 @@
+#####git
+1. GitHubのリポジトリをローカルにクローンしてVS Codeで開く方法
+GitHubで対象リポジトリを開く。
+緑の Code ボタンを押す。
+表示されたURLをコピーする。
+VS Codeでフォルダを開く。
+ターミナルで git clone <URL> を実行する。
+
+2. ファイル修正後の処理
+git add.：全ての変更ファイルを処理
+git commit -m ""：変更内容を記録
+git push：リモートリポジトリに変更内容を登録
+
+
+
+
+
+
 #####from datetime import datetime
 1. 現在の日時を取得する
 now = datetime.now()
@@ -222,6 +240,13 @@ shutil.copy2(src, dst)
 src_dir = Path("data/images")
 dst_dir = Path("backup/images")
 shutil.copytree(src_dir, dst_dir) #Python 3.8以降 shutil.copytree(src_dir, dst_dir, dirs_exist_ok=True)
+
+10. 実行中ファイルがあるディレクトリの絶対パスを取得する
+BASE_DIR = Path(__file__).resolve().parent
+Path(__file__): 現在のファイルのパスオブジェクトを作成します。
+.resolve(): パスのシンボリックリンクなどを解決し、絶対パスに変換します。
+.parent: そのファイルが配置されている1つ上のディレクトリ（親ディレクトリ）を取得します。
+
 
 
 

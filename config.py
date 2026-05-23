@@ -1,4 +1,7 @@
-OUTPUT_PATH = "output/logs.csv"
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent
+OUTPUT_PATH = BASE_DIR / "output" / "logs.csv"
 
 BATCH_NAMES = [
     "daily_import",
