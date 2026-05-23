@@ -1,0 +1,239 @@
+#####from datetime import datetime
+1. 現在の日時を取得する
+now = datetime.now()
+print(now)  # 出力例: 2026-05-23 09:50:00.123456
+
+2. 特定の日時を指定して作成する
+xmas = datetime(2026, 12, 25, 15, 30)
+print(xmas)  # 出力: 2026-12-25 15:30:00
+
+3. 文字列から日時に変換する（strptime）# 構文: datetime.strptime(文字列, フォーマット)
+date_str = "2026-05-23 18:00"
+dt = datetime.strptime(date_str, "%Y-%m-%d %H:%M")
+print(dt)  # 出力: 2026-05-23 18:00:00
+
+4. 日時から文字列に変換する（strftime）# 構文: オブジェクト.strftime(フォーマット)
+now = datetime.now()
+fmt_str = now.strftime("%Y年%m月%d日 %H時%M分")
+print(fmt_str)  # 出力例: 2026年05月23日 09時50分
+
+5. 曜日を調べる #日時データ（dt）
+# 0が月曜日、4が金曜日、6が日曜日
+print(dt.weekday())  # 出力: 4 (金曜日)
+
+6. 日時オブジェクトから特定の値を「数値」で取り出す
+now = datetime.now()
+print(now.year)   # 年 (例: 2026)
+print(now.month)  # 月 (例: 5)
+print(now.day)    # 日 (例: 23)
+print(now.hour)   # 時
+print(now.minute) # 分
+print(now.second) # 秒
+print(now.microsecond) # マイクロ秒
+
+
+
+
+
+#####from datetime import timedelta
+# 基本構文
+時間差 = timedelta(
+    weeks=0,          # 週間
+    days=0,           # 日
+    hours=0,          # 時間
+    minutes=0,        # 分
+    seconds=0,        # 秒
+    milliseconds=0,   # ミリ秒
+    microseconds=0    # マイクロ秒
+)
+
+1. 1週間後の日付を計算する
+now = datetime.now()
+in_a_week = timedelta(days=7)
+print(now + in_a_week) 
+
+2. 3時間半前の日時を計算する
+now = datetime.now()
+past_date = now - timedelta(hours=3, minutes=30)
+print(past_date) 
+
+3. 2つの日時の「差」を求める
+date1 = datetime(2026, 5, 23)
+date2 = datetime(2026, 6, 1)
+diff = date2 - date1
+print(diff.days)  # 「9」が表示される（日数の差）
+
+4. 処理時間を計測する
+#elapsed_time = round((end_time - start_time).total_seconds(), 2)
+end_time - start_time:時間差のデータ
+.total_seconds()：時間差から「合計で何秒あるか」を計算する
+round(..., 2)：その数字を小数点第2位で四捨五入する
+
+
+#####import random
+# 基本構文
+random.randint(a, b)：a 以上 b 以下の整数をランダムに1つ返します。
+random.random()：0.0 以上 1.0 未満の小数をランダムに返します。
+random.choice(リスト)：リストなどのコレクションから要素を1つランダムに選びます。
+random.shuffle(リスト)：元のリストの要素をランダムに並び替え（シャッフル）ます。
+
+1. 指定範囲の整数を取得（サイコロの目: 1～6）
+dice = random.randint(1, 6)
+print(f"サイコロ: {dice}")
+
+2. 0以上1未満の小数を取得
+percentage = random.random()
+print(f"確率: {percentage}")
+
+# 3. リストから1つ選ぶ（おみくじ）
+fortunes = ["大吉", "吉", "中吉", "小吉", "凶"]
+result = random.choice(fortunes)
+print(f"おみくじ: {result}")
+
+# 4. 順番をバラバラにする（トランプのシャッフルなど）
+cards = ["A", "2", "3", "4", "5"]
+random.shuffle(cards)
+print(f"シャッフル後: {cards}")
+
+
+
+
+
+#####enumerate() を使った for ループの基本構文
+# 基本構文
+for インデックス変数, 要素変数 in enumerate(イテラブルオブジェクト):
+    # 実行する処理
+
+enumerate(): 要素の前に 0, 1, 2... というインデックス番号を自動で付与する。
+i: 初期値は 0
+
+
+
+
+
+#####三項演算子の基本構文
+# 基本構文
+【条件がTrueの時の値】 if 【条件式】 else 【条件がFalseの時の値】
+
+
+
+
+#####logs.append({ ... }) の基本構文
+logs = []
+logs.append({
+    "timestamp": "2026-05-23T11:00:00",  # 日時
+    "level": "INFO",                       # ログレベル（INFO, ERRORなど）
+    "message": "ユーザーがログインしました",  # メッセージ
+    "user_id": 456                         # 関連データ（任意）
+})
+
+
+
+
+
+#####import csv
+# 基本構文
+with open() as f:
+ファイルの読み書きが終わった後、または途中でエラーが発生した場合でも、
+自動でファイルを閉じてくれる（f.close() を自動実行する）
+with: 前後の定型処理を自動化する仕組みを呼び出します。
+as f: 開いたファイルオブジェクトに f という一時的な変数名をつけます。
+インデント（字下げ）を抜けた時点で、自動でファイルが閉じられます。
+mode='r'：読み込みモード（省略可能）
+mode='w'：上書きモード（既存データは消えます）
+mode='a'：追記モード（末尾にデータをおすすめする場合）
+newline=''：空行が余分に入るバグを防ぐ必須指定
+
+1. リスト形式で読み込む (csv.reader)
+with open('ファイル名.csv', mode='r', newline='', encoding='utf-8') as f:
+    reader = csv.reader(f)
+    for row in reader:
+        print(row)  # rowはリスト型: ['データ1', 'データ2']
+
+2. 辞書形式で読み込む (csv.DictReader)
+with open('ファイル名.csv', mode='r', newline='', encoding='utf-8') as f:
+    reader = csv.DictReader(f)
+    for row in reader:
+        print(row['列名'])  # 列名で指定して取得
+
+3. 複数行をまとめて書き込む (writerows)
+data = [['A1', 'B1'], ['A2', 'B2']]
+with open('ファイル名.csv', mode='w', newline='', encoding='utf-8') as f:
+    writer = csv.writer(f)
+    writer.writerows(data)  # 2次元リストを丸ごと書き込み
+
+4. 1行ずつ書き込む (writerow)
+with open('ファイル名.csv', mode='w', newline='', encoding='utf-8') as f:
+    writer = csv.writer(f)
+    writer.writerow(['ヘッダー1', 'ヘッダー2'])  # 1行だけ書き込み
+    writer.writerow(['データ1', 'データ2'])
+
+
+
+
+#####from pathlib import Path
+1. インポートと初期化
+p = Path('data/sample.txt')
+
+2. パスの結合（スラッシュ / の使用）
+base_dir = Path("/home/user")
+sub_dir = base_dir / "documents" / "reports"
+# 結果: /home/user/documents/reports
+
+3. 主要な属性とメソッド
+p = Path('/Users/name/docs/sample.txt')
+print(p.name)      # ファイル名を取得: 'sample.txt'
+print(p.stem)      # 拡張子なしのファイル名: 'sample'
+print(p.suffix)    # 拡張子を取得: '.txt'
+print(p.parent)    # 親ディレクトリのパス: '/Users/name/docs'
+print(p.exists())  # ファイルが存在するか判定: True / False
+
+4. ファイルの読み書き（簡単操作）
+file = Path('sample.txt')
+file.write_text('こんにちは')
+content = file.read_text()
+print(content) # こんにちは
+
+5. 指定したパスのディレクトリ（フォルダ）を作成
+dir_path = Path("sample_dir/sub_dir")
+dir_path.mkdir(parents=True, exist_ok=True)
+parents=True:ディレクトリが存在しない場合、自動的に作成。
+exist_ok=True:ディレクトリが既に存在していてもエラーなし。
+
+6. ファイルの存在確認
+p = Path("config.json")
+if p.exists():
+    print("存在します")
+else:
+    print("存在しません")
+
+7. フォルダ内のファイルを一括取得（glob）
+folder = Path("images")
+for jpg_file in folder.glob("*.jpg"):
+    print(jpg_file.name)
+
+8. ファイルの移動 #import shutil
+src = Path("data/source.txt")
+dst = Path("backup/source_copy.txt")
+dst.parent.mkdir(parents=True, exist_ok=True)
+shutil.copy2(src, dst)
+
+9. フォルダを丸ごとコピーする（中身もすべて）#import shutil
+src_dir = Path("data/images")
+dst_dir = Path("backup/images")
+shutil.copytree(src_dir, dst_dir) #Python 3.8以降 shutil.copytree(src_dir, dst_dir, dirs_exist_ok=True)
+
+
+
+
+
+#####「そのスクリプトが直接実行された時だけ、main()を実行する」
+# 基本構文
+if __name__ == "__main__":
+    main()
+name:直接実行すると自動でファイル名が入る
+他のファイルから読み込まれた時、この構文がないと自動的にメイン処理が実行されてしまう
+
+
+
+
