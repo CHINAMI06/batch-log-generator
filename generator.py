@@ -3,16 +3,17 @@ import random
 from config import BATCH_NAMES, STATUS_SUCCESS_RATE, ERROR_MESSAGES
 
 
-def generate_batch_logs():
+def generate_batch_logs(seed=None):
+    rng = random.Random(seed)
     logs = []
     base_time = datetime(2026, 5, 22, 9, 0, 0)
 
     for i, batch_name in enumerate(BATCH_NAMES):
         start_time = base_time + timedelta(minutes=i * 15)
-        end_time = start_time + timedelta(seconds=random.randint(2, 8))
-        success = random.random() < STATUS_SUCCESS_RATE
-        record_count = random.randint(100, 2000) if success else 0
-        message = "job completed" if success else random.choice(ERROR_MESSAGES)
+        end_time = start_time + timedelta(seconds=rng.randint(2, 8))
+        success = rng.random() < STATUS_SUCCESS_RATE
+        record_count = rng.randint(100, 2000) if success else 0
+        message = "job completed" if success else rng.choice(ERROR_MESSAGES)
 
         logs.append({
             "timestamp": start_time.strftime("%Y-%m-%d %H:%M:%S"),

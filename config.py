@@ -3,6 +3,8 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent
 OUTPUT_PATH = BASE_DIR / "output" / "logs.csv"
 
+SEED = 42
+
 BATCH_NAMES = [
     "daily_import",
     "user_sync",

@@ -1,10 +1,10 @@
-from config import OUTPUT_PATH
+from config import OUTPUT_PATH, SEED
 from generator import generate_batch_logs
 from writer import write_csv
 
 
 def main():
-    logs = generate_batch_logs()
+    logs = generate_batch_logs(seed=SEED)
     write_csv(OUTPUT_PATH, logs)
 
 
