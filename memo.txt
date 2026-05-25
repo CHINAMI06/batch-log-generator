@@ -266,3 +266,34 @@ name:直接実行すると自動でファイル名が入る
 seed=42：乱数の結果が一定になり再現しやすい
 seed=0：乱数の結果が毎回変わる
 seed=None：設定されていなければ0になる
+
+
+
+
+
+#####calendar
+1. 1ヶ月分のカレンダーを表示する
+print(calendar.month(2026, 5))
+
+2. 1年分のカレンダーを表示する
+print(calendar.calendar(2026))
+
+3. 週の始まりの曜日を変更する（デフォルトは月曜日始まり）
+calendar.setfirstweekday(calendar.SUNDAY)
+
+4. 特定の日付の曜日を調べる
+print(calendar.weekday(2026, 5, 25))  # 出力: 0 (= 月曜日)
+
+5. 「その月の1日の曜日」と「その月の日数」を調べる
+first_weekday, days = calendar.monthrange(2026, 5)
+print(days)  # 出力: 31
+
+補足. 2月の日数を調べる(うるう年の判定も自動で行われる)
+# 通常の年（2026年2月 = 28日）
+print(calendar.monthrange(2026, 2)[1])
+# うるう年（2028年2月 = 29日）
+print(calendar.monthrange(2028, 2)[1])
+
+6. うるう年（閏年）を判定する
+print(calendar.isleap(2024))  # 出力: True
+
