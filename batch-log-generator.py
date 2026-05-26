@@ -49,6 +49,23 @@ ERROR_MESSAGES = [
 # =========================
 # ログ生成処理
 # =========================
+def create_log(
+    timestamp,
+    batch_name,
+    status,
+    record_count,
+    elapsed_sec,
+    message,
+):
+    return {
+        "timestamp": timestamp.strftime("%Y-%m-%d %H:%M:%S"),
+        "batch_name": batch_name,
+        "status": status,
+        "record_count": record_count,
+        "elapsed_sec": elapsed_sec,
+        "message": message,
+    }
+
 def generate_batch_logs(seed=None, base_time=None):
     rng = random.Random(seed)
     logs = []
@@ -84,26 +101,30 @@ def generate_batch_logs(seed=None, base_time=None):
                 else rng.choice(ERROR_MESSAGES)
             )
 
-            logs.append({
-                "timestamp": start_time.strftime("%Y-%m-%d %H:%M:%S"),
-                "batch_name": batch_name,
-                "status": STATUS_START,
-                "record_count": 0,
-                "elapsed_sec": 0.00,
-                "message": "job started",
-            })
+            logs.append(
+                create_log(
+                    timestamp=start_time,
+                    batch_name=batch_name,
+                    status=STATUS_START,
+                    record_count=0,
+                    elapsed_sec=0.00,
+                    message="job started",
+                )
+            )
 
-            logs.append({
-                "timestamp": end_time.strftime("%Y-%m-%d %H:%M:%S"),
-                "batch_name": batch_name,
-                "status": STATUS_SUCCESS if success else STATUS_FAILED,
-                "record_count": record_count,
-                "elapsed_sec": round(
-                    (end_time - start_time).total_seconds(),
-                    2
-                ),
-                "message": message,
-            })
+            logs.append(
+                create_log(
+                    timestamp=end_time,
+                    batch_name=batch_name,
+                    status=STATUS_SUCCESS if success else STATUS_FAILED,
+                    record_count=record_count,
+                    elapsed_sec=round(
+                        (end_time - start_time).total_seconds(),
+                        2
+                    ),
+                    message=message,
+                )
+            )
 
     return logs
 
