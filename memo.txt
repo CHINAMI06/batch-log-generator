@@ -297,3 +297,11 @@ print(calendar.monthrange(2028, 2)[1])
 6. うるう年（閏年）を判定する
 print(calendar.isleap(2024))  # 出力: True
 
+
+
+
+
+#####OR
+def generate_batch_logs(seed=None, now=None):
+now = now or datetime.now()
+or 演算子は、左側の値（now）が「偽（None など）」である場合、右側の値（datetime.now()）を評価して返す

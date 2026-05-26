@@ -17,6 +17,7 @@ BASE_DAY = 1
 BASE_HOUR = 9
 BASE_MINUTE = 0
 BASE_SECOND = 0
+TEST_BASE_TIME = datetime(2026, 4, BASE_DAY, BASE_HOUR, BASE_MINUTE, BASE_SECOND)
 
 BATCH_INTERVAL_MINUTES = 15
 
@@ -48,12 +49,14 @@ ERROR_MESSAGES = [
 # =========================
 # ログ生成処理
 # =========================
-def generate_batch_logs(seed=None):
+def generate_batch_logs(seed=None, base_time=None):
     rng = random.Random(seed)
     logs = []
 
-    now = datetime.now()
-    base_time = datetime(now.year, now.month, BASE_DAY, BASE_HOUR, BASE_MINUTE, BASE_SECOND)
+    if base_time is None:
+        now = datetime.now()
+        base_time = datetime(now.year, now.month, BASE_DAY, BASE_HOUR, BASE_MINUTE, BASE_SECOND)
+    
     days_in_month = calendar.monthrange(
         base_time.year,
         base_time.month
@@ -132,7 +135,7 @@ def write_csv(path, rows):
 # main処理
 # =========================
 def main():
-    logs = generate_batch_logs(SEED)
+    logs = generate_batch_logs(SEED, TEST_BASE_TIME)
     write_csv(OUTPUT_PATH, logs)
 
 
