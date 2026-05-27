@@ -11,25 +11,30 @@ import csv
 BASE_DIR = Path(__file__).resolve().parent
 OUTPUT_PATH = BASE_DIR / "output" / "logs.csv"
 
-SEED = 42
-
 BASE_DAY = 1
 BASE_HOUR = 9
 BASE_MINUTE = 0
 BASE_SECOND = 0
-TEST_BASE_TIME = datetime(2026, 4, BASE_DAY, BASE_HOUR, BASE_MINUTE, BASE_SECOND)
+
+# テスト用の固定値設定（結果を変化させたい場合はNoneが必要です）
+#TEST_BASE_TIME = datetime(2026, 4, BASE_DAY, BASE_HOUR, BASE_MINUTE, BASE_SECOND) 
+TEST_BASE_TIME = None
+#SEED = 42
+SEED = None
 
 BATCH_INTERVAL_MINUTES = 15
 
+ELAPSED_SEC_ZERO = 0.00
 MIN_ELAPSED_SEC = 2
 MAX_ELAPSED_SEC = 8
 
 BATCH_NAMES = [
-    "daily_import",
-    "user_sync",
-    "order_export",
+    "daily_import.bat",
+    "user_sync.bat",
+    "order_export.bat",
 ]
 
+RECORD_COUNT_ZERO = 0
 MIN_RECORD_COUNT = 100
 MAX_RECORD_COUNT = 2000
 
@@ -56,7 +61,7 @@ def create_log(
     record_count,
     elapsed_sec,
     message,
-):
+    ):
     return {
         "timestamp": timestamp.strftime("%Y-%m-%d %H:%M:%S"),
         "batch_name": batch_name,
@@ -92,7 +97,7 @@ def generate_batch_logs(seed=None, base_time=None):
 
             record_count = (
                 rng.randint(MIN_RECORD_COUNT, MAX_RECORD_COUNT)
-                if success else 0
+                if success else RECORD_COUNT_ZERO
             )
 
             message = (
@@ -103,26 +108,26 @@ def generate_batch_logs(seed=None, base_time=None):
 
             logs.append(
                 create_log(
-                    timestamp=start_time,
-                    batch_name=batch_name,
-                    status=STATUS_START,
-                    record_count=0,
-                    elapsed_sec=0.00,
-                    message="job started",
+                    start_time,
+                    batch_name,
+                    STATUS_START,
+                    RECORD_COUNT_ZERO,
+                    ELAPSED_SEC_ZERO,
+                    "job started",
                 )
             )
 
             logs.append(
                 create_log(
-                    timestamp=end_time,
-                    batch_name=batch_name,
-                    status=STATUS_SUCCESS if success else STATUS_FAILED,
-                    record_count=record_count,
-                    elapsed_sec=round(
+                    end_time,
+                    batch_name,
+                    STATUS_SUCCESS if success else STATUS_FAILED,
+                    record_count,
+                    round(
                         (end_time - start_time).total_seconds(),
                         2
                     ),
-                    message=message,
+                    message,
                 )
             )
 
