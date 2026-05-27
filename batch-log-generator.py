@@ -8,8 +8,12 @@ import csv
 # =========================
 # 設定値
 # =========================
+NOW = datetime.now()
+NOW_TODAY = NOW.strftime("%Y%m%d")
+NOW_TIME = NOW.strftime('%Y%m%d%H%M')
+
 BASE_DIR = Path(__file__).resolve().parent
-OUTPUT_PATH = BASE_DIR / "output" / "logs.csv"
+OUTPUT_PATH = BASE_DIR / "output" /  NOW_TODAY /f"logs_ver{NOW_TIME}.csv"
 
 BASE_DAY = 1
 BASE_HOUR = 9
@@ -76,8 +80,7 @@ def generate_batch_logs(seed=None, base_time=None):
     logs = []
 
     if base_time is None:
-        now = datetime.now()
-        base_time = datetime(now.year, now.month, BASE_DAY, BASE_HOUR, BASE_MINUTE, BASE_SECOND)
+        base_time = datetime(NOW.year, NOW.month, BASE_DAY, BASE_HOUR, BASE_MINUTE, BASE_SECOND)
     
     days_in_month = calendar.monthrange(
         base_time.year,
