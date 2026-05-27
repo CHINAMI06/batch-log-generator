@@ -305,3 +305,21 @@ print(calendar.isleap(2024))  # 出力: True
 def generate_batch_logs(seed=None, now=None):
 now = now or datetime.now()
 or 演算子は、左側の値（now）が「偽（None など）」である場合、右側の値（datetime.now()）を評価して返す
+
+
+
+
+
+#####try except Exception as e:
+try:エラーが起きる可能性のあるところに記述する
+except Exception:一般的なエラーをキャッチする
+as e:エラー内容を変数 e に代入して保存する
+try:
+    print("処理を実行します")
+except Exception as e:
+    print(f"エラー発生: {e}")
+else:
+    print("エラーは発生しませんでした")  # tryが正常に成功した場合のみ実行
+finally:
+    print("すべての処理が終了しました")  # エラーの有無に関わらず必ず最後に実行
+    input("Enterキーを押すと終了します...") # 画面が勝手に閉じるのを防ぐために一時停止

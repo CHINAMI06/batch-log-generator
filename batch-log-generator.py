@@ -161,9 +161,19 @@ def write_csv(path, rows):
 # main処理
 # =========================
 def main():
-    logs = generate_batch_logs(SEED, TEST_BASE_TIME)
-    write_csv(OUTPUT_PATH, logs)
+    try:
+        logs = generate_batch_logs(SEED, TEST_BASE_TIME)
+        write_csv(OUTPUT_PATH, logs)
 
+    except Exception as e:
+        print(f"error occurred: {e}")
+    
+    else:
+        print(f"Logs generated: {OUTPUT_PATH}")
+
+    finally:
+        print("Process completed.")
+        input("Press Enter to exit...")
 
 if __name__ == "__main__":
     main()
